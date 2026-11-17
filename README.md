@@ -14,7 +14,7 @@ A **code-free, dependency-free** knowledge workflow for software projects. It se
 - **AGENTS.knowledge.md（通用协议）**：由 Agent 内联合并进目标项目的 `AGENTS.md`，随后不保留第二份协议副本。
 - **Living documents（当前共识文档）**：由目标项目指定，可以是已有 README、架构文档或产品文档，不强制新建。
 - **确认权归人**：Agent 的提议或总结不等于确认；有决策权的人明确接受结论后，Agent 主动完成归档。
-- **待处理事项可关闭**：新草稿及未决子项立即登记为 pending；明确不做或暂缓时分别归档为 `Rejected` 或 `Deferred`。
+- **待处理事项可关闭**：新草稿及未决子项立即登记为 `Pending discussion`；明确不做或暂缓时分别归档为 `Rejected` 或 `Deferred`。
 - **当前与未来分开**：已批准但尚未实现的内容不得写成现有行为，须放在明确的待实现分区。
 
 模板包没有代码和运行时依赖。接入时必须保留目标项目已有内容，只创建缺失结构并合并协议，不能覆盖整个 `AGENTS.md` 或重写项目文档。本仓库自身不启用根 `AGENTS.md`，也不制造真实决策记录；`Progress/` 保持为空白模板。
@@ -75,7 +75,7 @@ For direct conversations, archive proactively after human confirmation and do no
 
 Give the following request to an agent working in the target project, together with this repository's URL or local path:
 
-> Read `README.md` and `AGENTS.knowledge.md` in the Project Knowledge Kit repository, and integrate this code-free knowledge workflow into the current project. Create only missing `Drafts/` and `Progress/` structures, including `Drafts/README.md`, `Progress/TEMPLATE.md`, and `Progress/Progress.md` with its header rules but no real project records; remove the illustrative comments from the copied index. Inline the generic protocol into the root `AGENTS.md` without overwriting existing content, then remove only the standalone `AGENTS.knowledge.md` copy introduced by this integration; preserve any pre-existing file with that name. Check for an existing knowledge or decision-recording workflow first, and surface any conflicts. Identify the project's living documents for current consensus. Copy only the template files listed in the integration steps, not maintenance artifacts such as `Docs/`. Do not copy illustrative examples as real project history or invent business decisions merely to populate the archive. When finished, report what was added, merged, preserved, and any conflicts that require human judgment.
+> Read `README.md` and `AGENTS.knowledge.md` in the Project Knowledge Kit repository, and integrate this code-free knowledge workflow into the current project. Create only missing `Drafts/` and `Progress/` structures, including `Progress/TEMPLATE.md` and `Progress/Progress.md` with its header rules but no real project records; copy `Drafts/README.md` unless the project already covers its rules and deliberately retains the draft directory another way. Remove the illustrative comments from the copied index. Inline the generic protocol into the root `AGENTS.md` without overwriting existing content, recording the source repository URL and exact source commit immediately above the merged protocol. Then remove only the standalone `AGENTS.knowledge.md` copy introduced by this integration; preserve any pre-existing file with that name. Check for an existing knowledge or decision-recording workflow first, and surface any conflicts. Identify the project's living documents for current consensus. Copy only the template files listed in the integration steps, not maintenance artifacts such as `Docs/`. Do not copy illustrative examples as real project history or invent business decisions merely to populate the archive. When finished, report what was added, merged, preserved, the recorded protocol version, and any conflicts that require human judgment.
 
 The integrating agent should follow these steps:
 
@@ -89,6 +89,7 @@ The integrating agent should follow these steps:
    - Do not copy real drafts, decisions, or images produced by this kit's use in any other project. Do not copy repository-maintenance artifacts such as `Docs/`.
 3. **Inline the protocol as the single maintained copy**
    - Merge the contents of `AGENTS.knowledge.md` into the target project's root `AGENTS.md`. This repository's `.knowledge` suffix is only a staging convention for integration; it is not a file most agents will discover automatically.
+   - Immediately above the merged protocol, add a provenance comment containing the source repository URL and the exact upstream commit used, for example `<!-- Project Knowledge Protocol source: https://github.com/OWNER/ai-project-knowledge-kit @ FULL_COMMIT_SHA -->`. Use the actual source URL and full commit SHA, not the placeholder or an unversioned branch name. Preserve this anchor during later upgrades.
    - After a successful inline merge, remove only the standalone `AGENTS.knowledge.md` copy introduced by this integration. Preserve any pre-existing file with that name until the user resolves its role. Do not leave both an inline copy and a referenced copy that can drift.
    - Preserve all unrelated project-specific rules. Do not delete or rewrite them merely to make the text look uniform.
    - If the project uses additional agent-instruction files, follow its existing convention for referencing the root `AGENTS.md` instead of creating several independently maintained copies.
@@ -98,8 +99,9 @@ The integrating agent should follow these steps:
    - Do not require a new README or rewrite the project's design philosophy just to adopt this workflow.
 5. **Perform lightweight verification**
    - Confirm that the new index retains its header rules and contains no invented drafts or decisions.
-   - Confirm that the merged protocol covers startup draft checks, accountable-human confirmation, pending-topic and unresolved-subscope indexing, the three archiving actions, proactive archiving of direct conversations, record naming, rejection/deferral exits, amendment history, current-versus-approved-future behavior, and noise control.
+   - Confirm that the merged protocol covers startup draft checks, accountable-human confirmation, pending-topic and unresolved-sub-scope indexing, the three archiving actions, proactive archiving of direct conversations, record naming, rejection/deferral exits, amendment history, current-versus-approved-future behavior, and noise control.
    - Confirm that the exact status spellings are preserved and that `Drafts/README.md` is present or its two key rules are covered elsewhere.
+   - Confirm that the merged protocol has a provenance comment with the actual source repository URL and full upstream commit SHA.
    - Report all file changes and any rule conflicts that need human resolution.
 
 ## Day-to-Day Use
@@ -120,7 +122,9 @@ A draft is not required. After a human-confirmed conclusion emerges, the agent s
 
 ### When an idea is rejected or deferred
 
-A decision not to implement an idea, or to postpone it, is a confirmed conclusion with an exit from pending work. Create a decision record explaining the rationale, link the topic's index row to it, and use the exact status `Rejected` or `Deferred`. Do not leave the row as `Pending discussion` merely because no implementation will occur. If the topic is later reconsidered, create a new record and preserve the earlier decision.
+A decision not to implement an idea, or to postpone it, is a confirmed conclusion with an exit from pending work. Create a decision record explaining the rationale, link the topic's index row to it, and use the exact status `Rejected` or `Deferred`. Do not leave the row as `Pending discussion` merely because no implementation will occur.
+
+If the topic is later reconsidered and accepted, create a new record and a new index row for the newly confirmed scope. Change the old `Rejected` or `Deferred` row to `Amended by a later decision`, identify the new record in its Notes, and preserve the old record's original conclusion. This reuses the existing amendment status; no separate `Reopened` status is needed.
 
 ### When a conclusion changes
 
@@ -242,6 +246,7 @@ The original draft and both export records remain available. The old record show
 
 - The first version is plain text: no installer, initialization script, synchronization process, or runtime dependency.
 - Projects may adapt copied templates to local needs. Copies are not automatically synchronized across projects.
+- Each inlined protocol carries a source repository URL and exact upstream commit SHA. To upgrade, compare that commit with the desired upstream version and review the protocol diff; report the effects on local customizations and existing workflows; obtain the project owner's confirmation for substantive changes; then merge deliberately and update the provenance SHA. Never overwrite the whole `AGENTS.md` during an upgrade.
 - The generic protocol describes only the knowledge workflow. Coding, testing, release, and business rules remain in each project's own `AGENTS.md`.
 - CLI tooling, version checks, and automatic synchronization should be considered only when real use in actual projects reveals a concrete need. They are not assumed to be inevitable next steps.
 

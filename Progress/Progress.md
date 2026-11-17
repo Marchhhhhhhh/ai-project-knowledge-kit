@@ -6,7 +6,7 @@
 > The same applies within a topic: track each unresolved sub-scope in its own pending row instead of mentioning it only in a confirmed record's Notes.
 
 > Exact status values: `Pending discussion`, `Confirmed, pending implementation`, `Implemented`, `Rejected`, `Deferred`, and `Amended by a later decision`.
-> A rejected or deferred topic must link to its human-confirmed decision record instead of remaining pending.
+> A rejected or deferred topic must link to its human-confirmed decision record instead of remaining pending. If later accepted, change the old row to `Amended by a later decision`, identify the new record in Notes, and add a new row for the newly confirmed scope.
 
 | Source | Record | Status | Updated | Notes |
 |---|---|---|---|---|

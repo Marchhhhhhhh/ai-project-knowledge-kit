@@ -24,7 +24,7 @@ This is a generic rule set intended to be merged into a target project's root `A
 - Drafts capture authentic input from before a discussion. They may include uncertainties, images, and immature ideas; they do not need to be complete proposals.
 - A draft is neither a commitment nor confirmation. Undiscussed and unconfirmed portions remain pending in the draft inbox.
 - One draft may be discussed and archived over several sessions. Do not prematurely confirm unrelated topics just to mark the whole file as processed.
-- When a new draft is added, also add its pending topics to `Progress/Progress.md`. Use `—` in the Record column until a decision record exists, and use a status such as “Pending discussion.” This makes pending work discoverable without inventing a conclusion or an archive file.
+- When a new draft is added, also add its pending topics to `Progress/Progress.md`. Use `—` in the Record column until a decision record exists, and use the status `Pending discussion`. This makes pending work discoverable without inventing a conclusion or an archive file.
 
 ### Confirmation: The Accountable Human Decides
 
@@ -56,14 +56,14 @@ This is a generic rule set intended to be merged into a target project's root `A
 ### Status Index: Track Pending Topics and Decision Records
 
 - Update `Progress/Progress.md` when a draft is added, when a decision record is added or materially updated, or when a topic's processing status changes.
-- The index serves both pending work and decision history. A pending topic uses its draft as the Source, `—` as the Record, and a status such as “Pending discussion.” Replace `—` with the record path only after a human-confirmed decision has been archived.
+- The index serves both pending work and decision history. A pending topic uses its draft as the Source, `—` as the Record, and the status `Pending discussion`. Replace `—` with the record path only after a human-confirmed decision has been archived.
 - The index records source, optional record path, current status, update date, and necessary context. Keep detailed reasoning in the record itself to avoid maintaining two full copies.
 - When only part of a draft has been processed, keep the unconfirmed topics pending and add a separate row for each newly archived decision. Each row must identify its topic scope; do not mark the entire draft as processed.
 - The same rule applies within a single topic: if only one question or sub-scope is confirmed, split the remaining open question into its own pending row with a precise Source scope. Do not bury it only in a confirmed record's Notes or assume that a decision on the parent topic resolves it. Link that pending row to a decision record only when the open question itself has been explicitly resolved.
 - A decision to reject or defer a topic is also a confirmed conclusion, not an unresolved topic. Archive the decision and its rationale, link the index row to that record, and use the exact status `Rejected` or `Deferred`. Do not leave a human-decided “do not do this” or “not now” item indefinitely marked as pending.
-- Use these exact status values and capitalization: `Pending discussion`, `Confirmed, pending implementation`, `Implemented`, `Rejected`, `Deferred`, and `Amended by a later decision`. Status may be updated after implementation without erasing the original design rationale. A later human decision may reopen a rejected or deferred topic by creating a new record and linking the history rather than silently changing the old conclusion.
+- Use these exact status values and capitalization: `Pending discussion`, `Confirmed, pending implementation`, `Implemented`, `Rejected`, `Deferred`, and `Amended by a later decision`. Status may be updated after implementation without erasing the original design rationale. A later human decision may reopen a rejected or deferred topic by creating a new record and adding a new index row for the newly confirmed scope. Change the old `Rejected` or `Deferred` row to `Amended by a later decision` and identify the new record in its Notes; preserve the old record itself rather than silently changing its conclusion.
 
-### Living Consensus and Decision History: Maintain Separately
+### Living Documents and Decision History: Maintain Separately
 
 - `Progress/` preserves time-specific decision history. Project-designated living documents describe the consensus currently in effect.
 - Each project chooses its living documents. They may be `README.md`, architecture documents, or other existing documents; no particular filename or new document is mandatory.
