@@ -13,7 +13,7 @@ Summarize or quote the original request. This section is especially important fo
 
 ## Conclusions
 
-List the conclusions that were explicitly confirmed, distinguishing settled points from unresolved ones. If the record covers only one topic from its source draft, state that scope here.
+List the conclusions explicitly accepted by the user or another accountable human decision-maker, distinguishing settled points from unresolved ones. An agent's proposal or summary alone is not confirmation. If the record covers only one topic from its source draft, state that scope here.
 
 ## Rationale and Trade-offs
 
@@ -21,7 +21,7 @@ Record key reasoning, rejected alternatives, and why they were rejected. Remove 
 
 ## Impact on Current Consensus
 
-Identify any README, architecture document, `AGENTS.md`, or other living document that must be updated. If this amends an earlier decision, identify the earlier record and the relationship between old and new conclusions.
+Identify any README, architecture document, `AGENTS.md`, or other living document that must be updated. Clearly separate current behavior from “approved, not yet implemented” decisions so readers do not mistake planned behavior for existing behavior. If this amends an earlier decision, identify the earlier record and the relationship between old and new conclusions.
 
 ## Implementation and Verification
 
