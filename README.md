@@ -92,6 +92,8 @@ Record it informally in `Drafts/`, and add each topic to `Progress/Progress.md` 
 
 Once a conclusion is confirmed, archiving consists of three actions: **create a new decision record in `Progress/`, preserve the original draft and its unconfirmed topics, and update the index**. Do not move or delete the original draft. Keep unconfirmed topics in separate pending rows; create a separate row for each archived decision.
 
+This also applies to unresolved questions within one topic. If a decision confirms only part of the topic, add a pending row for each remaining open sub-scope rather than mentioning it only in the confirmed record's Notes. A pending sub-scope is resolved only by an explicit human decision; it is not implicitly approved or rejected by the parent topic's decision.
+
 ### When an idea starts in conversation
 
 A draft is not required. After a human-confirmed conclusion emerges, the agent should proactively archive it without asking again for permission to perform the record-keeping step. Preserve the original motivation in a “Discussion Origin” section, and mark the index source as “No corresponding draft; raised directly in conversation.” Never backdate or fabricate a draft to make the workflow appear complete.
@@ -133,7 +135,7 @@ Immediately index both undiscussed topics in `Progress/Progress.md`. There are n
 | Drafts/20261117_01.md (Export format) | — | Pending discussion | 2026-11-17 | JSON and CSV support not yet decided |
 | Drafts/20261117_01.md (Notification timing) | — | Pending discussion | 2026-11-17 | Timing not yet decided |
 
-### 2. Confirm and archive only the first topic
+### 2. Confirm and archive only the JSON scope
 
 During discussion, an agent recommends supporting JSON first and postponing CSV. That recommendation alone is not confirmation. The user then explicitly replies, “Yes, use JSON only for the first version; CSV remains undecided.” The export-format topic is now confirmed within that specific scope.
 
@@ -167,11 +169,12 @@ Document JSON export as approved future behavior, not as an existing feature.
 Implementation and verification have not started.
 ```
 
-The original draft remains unchanged, including both topics. Update the index so the first topic points to its new record and the second remains pending:
+The original draft remains unchanged, including both topics. Update the index so the confirmed JSON scope points to its new record. Future CSV support becomes a separate pending sub-scope of Export format; it cannot exist only in the confirmed record's Notes. Notification timing also remains pending:
 
 | Source | Record | Status | Updated | Notes |
 |---|---|---|---|---|
-| Drafts/20261117_01.md (Export format) | Progress/20261117_01-json-export.md | Confirmed, pending implementation | 2026-11-18 | JSON only for the first version; CSV remains undecided |
+| Drafts/20261117_01.md (Export format — first-version JSON support) | Progress/20261117_01-json-export.md | Confirmed, pending implementation | 2026-11-18 | JSON approved for the first version |
+| Drafts/20261117_01.md (Export format — future CSV support) | — | Pending discussion | 2026-11-18 | Explicitly left undecided by the user |
 | Drafts/20261117_01.md (Notification timing) | — | Pending discussion | 2026-11-18 | Timing not yet decided |
 
 If the README describes current application behavior, do not add “JSON export is available.” Instead, if advance documentation is useful, add a clearly separated section:
@@ -183,30 +186,31 @@ If the README describes current application behavior, do not add “JSON export 
   See `Progress/20261117_01-json-export.md`. It is not currently available.
 ```
 
-### 3. Confirm the second topic independently
+### 3. Confirm another topic without resolving the CSV sub-scope
 
-On a later date, the user explicitly chooses a daily digest for notifications. Create a second record, `Progress/20261118_01-daily-digest.md`, while preserving the same original draft. The index now contains two separate decision records and no pending rows for this draft:
-
-| Source | Record | Status | Updated | Notes |
-|---|---|---|---|---|
-| Drafts/20261117_01.md (Export format) | Progress/20261117_01-json-export.md | Confirmed, pending implementation | 2026-11-18 | JSON only for the first version; CSV remains undecided |
-| Drafts/20261117_01.md (Notification timing) | Progress/20261118_01-daily-digest.md | Confirmed, pending implementation | 2026-11-19 | Send a daily digest; immediate notifications not approved |
-
-Confirming the second topic does not rewrite the first record or imply that either feature has been implemented.
-
-### 4. Amend the export decision without erasing history
-
-After implementation has begun, a real integration requirement makes CSV necessary. The agent does not silently change the old conclusion. It presents the new trade-off, and the user explicitly approves JSON and CSV together.
-
-Create a new record, `Progress/20261120_01-json-and-csv-export.md`, stating that it amends `Progress/20261117_01-json-export.md` and why. Update the living document to describe JSON and CSV as approved future behavior until both are implemented and verified. The index retains both records:
+On a later date, the user explicitly chooses a daily digest for notifications. Create a second record, `Progress/20261118_01-daily-digest.md`, while preserving the same original draft. The index now contains two separate decision records, but future CSV support remains pending because the notification decision says nothing about it:
 
 | Source | Record | Status | Updated | Notes |
 |---|---|---|---|---|
-| Drafts/20261117_01.md (Export format) | Progress/20261117_01-json-export.md | Amended by a later decision | 2026-11-20 | JSON-only scope amended by 20261120_01-json-and-csv-export.md |
-| Drafts/20261117_01.md (Export format) | Progress/20261120_01-json-and-csv-export.md | Confirmed, pending implementation | 2026-11-20 | JSON and CSV approved; supersedes the earlier format scope |
+| Drafts/20261117_01.md (Export format — first-version JSON support) | Progress/20261117_01-json-export.md | Confirmed, pending implementation | 2026-11-18 | JSON approved for the first version |
+| Drafts/20261117_01.md (Export format — future CSV support) | — | Pending discussion | 2026-11-19 | Still undecided; not resolved by the notification decision |
 | Drafts/20261117_01.md (Notification timing) | Progress/20261118_01-daily-digest.md | Confirmed, pending implementation | 2026-11-19 | Send a daily digest; immediate notifications not approved |
 
-The original draft and both export records remain available. The old record shows what was approved at that time, the new record shows the current approved direction, and the README continues to distinguish approved future behavior from verified existing behavior.
+Confirming notification timing does not rewrite the JSON record, resolve the CSV sub-scope, or imply that either confirmed feature has been implemented.
+
+### 4. Resolve CSV and amend the export decision without erasing history
+
+After implementation has begun, a real integration requirement makes CSV necessary. The agent does not silently change the old conclusion or treat CSV as having been approved earlier. It presents the new trade-off, and the user explicitly approves JSON and CSV together. This both resolves the pending CSV sub-scope and amends the earlier JSON-only decision.
+
+Create a new record, `Progress/20261120_01-json-and-csv-export.md`, stating that it amends `Progress/20261117_01-json-export.md` and why. Replace the CSV pending row's `—` with the new record path and update its status. Update the living document to describe JSON and CSV as approved future behavior until both are implemented and verified. The index retains the old decision, the new decision, and the notification decision:
+
+| Source | Record | Status | Updated | Notes |
+|---|---|---|---|---|
+| Drafts/20261117_01.md (Export format — first-version JSON support) | Progress/20261117_01-json-export.md | Amended by a later decision | 2026-11-20 | JSON-only scope amended by 20261120_01-json-and-csv-export.md |
+| Drafts/20261117_01.md (Export format — future CSV support) | Progress/20261120_01-json-and-csv-export.md | Confirmed, pending implementation | 2026-11-20 | CSV explicitly approved; JSON and CSV now form the approved export scope |
+| Drafts/20261117_01.md (Notification timing) | Progress/20261118_01-daily-digest.md | Confirmed, pending implementation | 2026-11-19 | Send a daily digest; immediate notifications not approved |
+
+The original draft and both export records remain available. The old record shows what was approved at that time, the pending CSV row tracked the unresolved sub-scope until its explicit resolution, and the new record shows the current approved direction. The README continues to distinguish approved future behavior from verified existing behavior.
 
 ## Maintenance and Evolution
 

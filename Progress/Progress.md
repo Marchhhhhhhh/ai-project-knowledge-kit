@@ -3,6 +3,7 @@
 > Use this table for both pending topics and decision history. Keep detailed background, conclusions, and rejected alternatives in the linked records.
 > Add a pending draft topic with `—` in the Record column. Replace that marker only after a human-confirmed decision has been archived.
 > If only some topics in a draft have been processed, keep separate rows for pending topics and archived decisions. Do not mark the entire draft as processed.
+> The same applies within a topic: track each unresolved sub-scope in its own pending row instead of mentioning it only in a confirmed record's Notes.
 
 | Source | Record | Status | Updated | Notes |
 |---|---|---|---|---|

@@ -59,6 +59,7 @@ This is a generic rule set intended to be merged into a target project's root `A
 - The index serves both pending work and decision history. A pending topic uses its draft as the Source, `—` as the Record, and a status such as “Pending discussion.” Replace `—` with the record path only after a human-confirmed decision has been archived.
 - The index records source, optional record path, current status, update date, and necessary context. Keep detailed reasoning in the record itself to avoid maintaining two full copies.
 - When only part of a draft has been processed, keep the unconfirmed topics pending and add a separate row for each newly archived decision. Each row must identify its topic scope; do not mark the entire draft as processed.
+- The same rule applies within a single topic: if only one question or sub-scope is confirmed, split the remaining open question into its own pending row with a precise Source scope. Do not bury it only in a confirmed record's Notes or assume that a decision on the parent topic resolves it. Link that pending row to a decision record only when the open question itself has been explicitly resolved.
 - Status values should describe reality, such as “pending discussion,” “confirmed, pending implementation,” “implemented,” or “amended by a later decision.” Status may be updated after implementation without erasing the original design rationale.
 
 ### Living Consensus and Decision History: Maintain Separately
