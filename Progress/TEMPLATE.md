@@ -21,7 +21,7 @@ Record key reasoning, rejected alternatives, and why they were rejected. Remove 
 
 ## Impact on Current Consensus
 
-Identify any README, architecture document, `AGENTS.md`, or other living document that must be updated. Clearly separate current behavior from “approved, not yet implemented” decisions so readers do not mistake planned behavior for existing behavior. If this amends an earlier decision, identify the earlier record and the relationship between old and new conclusions.
+Identify any README, architecture document, `AGENTS.md`, or other living document that must be updated. Clearly separate current behavior from “approved, not yet implemented” decisions so readers do not mistake planned behavior for existing behavior. If this amends or reverses an earlier decision, identify the earlier record and the relationship between old and new conclusions.
 
 ## Implementation and Verification
 

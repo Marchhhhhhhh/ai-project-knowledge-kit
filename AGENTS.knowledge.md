@@ -79,6 +79,11 @@ This is a generic rule set intended to be merged into a target project's root `A
 - If such an activity produces a reusable rule or new consensus, archive only that conclusion and the context needed to understand it, rather than copying the entire activity log.
 - Ordinary implementation details already expressed clearly in code, tests, or commits do not require separate decision records.
 
+### Protocol Provenance and Upgrades
+
+- When this protocol is inlined from another repository, preserve the provenance comment immediately above it. It identifies the source location and the exact source commit SHA or distributed version used. This comment is operational metadata, not removable documentation noise.
+- To upgrade, compare the recorded source version with the desired upstream version, review the protocol diff, and report effects on local customizations and existing workflows. Obtain the project owner's confirmation for substantive changes, then merge deliberately and update the provenance version. Never overwrite the whole `AGENTS.md` during an upgrade.
+
 ### Project-Specific Extensions
 
 - Existing `AGENTS.md`, README files, testing requirements, startup procedures, and business rules in the target project remain effective. Merge this protocol into them; do not overwrite or delete them.
