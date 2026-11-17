@@ -6,32 +6,45 @@ A **code-free, dependency-free** knowledge workflow for software projects. It se
 
 ## 中文介绍
 
-这是一套从 Work Bench 抽离的**项目知识沉淀模板包**，用于在其他项目中复用 `Drafts/`、`Progress/`、归档规则和 `AGENTS.md` 组成的工作流。
+这是一套**项目知识沉淀模板包**，用于在其他项目中复用 `Drafts/`、`Progress/`、归档规则和 `AGENTS.md` 组成的工作流。它源自作者本地的 Work Bench 项目，不包含该项目的业务规则、真实草稿或历史决策。
 
 - **Drafts（草稿箱）**：保留讨论前的真实想法，允许零碎、不成熟和一文多话题。
-- **Progress（决策记录）**：保存已经确认的结论、理由、否决项和后续修订关系。
-- **Progress.md（状态索引）**：帮助查找记录并判断处理状态，不重复完整论证。
-- **AGENTS.knowledge.md（通用协议）**：由 Agent 合并进目标项目的 `AGENTS.md`，指导后续知识维护。
-- **当前共识文档**：由目标项目指定，可以是已有 README、架构文档或产品文档，不强制新建。
+- **Progress/（决策记录目录）**：保存已经确认的结论、理由、否决项和后续修订关系。
+- **Progress/Progress.md（状态索引文件）**：登记待处理话题并导航到决策记录，不重复完整论证。
+- **AGENTS.knowledge.md（通用协议）**：由 Agent 内联合并进目标项目的 `AGENTS.md`，随后不保留第二份协议副本。
+- **Living documents（当前共识文档）**：由目标项目指定，可以是已有 README、架构文档或产品文档，不强制新建。
+- **确认权归人**：Agent 的提议或总结不等于确认；有决策权的人明确接受结论后，Agent 主动完成归档。
+- **待处理事项可关闭**：新草稿及未决子项立即登记为 pending；明确不做或暂缓时分别归档为 `Rejected` 或 `Deferred`。
+- **当前与未来分开**：已批准但尚未实现的内容不得写成现有行为，须放在明确的待实现分区。
 
-模板包没有代码和运行时依赖，也不包含 Work Bench 的业务规则、真实草稿或历史决策。接入时必须保留目标项目已有内容，只创建缺失结构并合并协议，不能覆盖整个 `AGENTS.md` 或重写项目文档。
+模板包没有代码和运行时依赖。接入时必须保留目标项目已有内容，只创建缺失结构并合并协议，不能覆盖整个 `AGENTS.md` 或重写项目文档。本仓库自身不启用根 `AGENTS.md`，也不制造真实决策记录；`Progress/` 保持为空白模板。
 
 本模板包以英文为主体；本节仅作中文简介，完整的接入步骤、Agent 提示词和日常使用规则见下文。
 
 ## Directory Contents
 
 ```text
-project-knowledge-kit/
+ai-project-knowledge-kit/
 ├── README.md                 # This guide, including the Chinese introduction
 ├── AGENTS.knowledge.md       # Generic protocol to merge into a project's AGENTS.md
+├── LICENSE                   # MIT License for reuse and adaptation
+├── .gitignore                # Minimal operating-system file exclusions
 ├── Drafts/
-│   └── README.md             # Draft inbox guidance; optional after onboarding
+│   └── README.md             # Draft inbox guidance; copied by default, removable when redundant
 └── Progress/
-    ├── Progress.md           # Empty status index
+    ├── Progress.md           # Index template with no real project records
     └── TEMPLATE.md           # Reference template for a decision record
 ```
 
-The kit contains no project-specific decisions, business rules, or personal information. Once copied into a project, its knowledge records evolve independently within that project.
+The template files contain no project-specific decisions, business rules, or personal information. Once copied into a project, its knowledge records evolve independently within that project.
+
+This kit is distributed under the [MIT License](LICENSE). The directory tree identifies the default template payload; integration copies only the files explicitly listed below. Review reports, maintenance notes, and other repository-maintenance artifacts are not project templates.
+
+## Terminology
+
+- **Living documents（当前共识文档）** are the project-designated documents that describe consensus currently in effect, such as a README or architecture document. “Current project consensus” is the content they communicate, not a separate storage location.
+- **Decision records（决策记录）** are dated files in `Progress/` that preserve conclusions and their context.
+- **The status index（状态索引）** is `Progress/Progress.md`, not the entire `Progress/` directory.
 
 ## Workflow Overview
 
@@ -42,16 +55,19 @@ Raw ideas in Drafts/ ──discussion──> confirmed conclusions ──archive
 
 Ideas raised directly in conversation ──discussion──> confirmed conclusions
                                              │
-                                             └──archive proactively; do not invent Drafts
+                                             └──archive──> Progress/
 
 Conclusions that affect current rules ──sync──> the project's designated living documents
                                                (README, architecture docs, AGENTS.md, etc.)
 ```
 
+For direct conversations, archive proactively after human confirmation and do not invent Drafts.
+
 - **Drafts are inputs:** They may be incomplete, uncertain, or contain several topics. A draft is not a commitment to implement anything.
 - **Archiving creates; it does not move:** After the user or another accountable human decision-maker explicitly accepts a conclusion, create a new decision record in `Progress/`, preserve the original draft and any unconfirmed topics, and update `Progress/Progress.md`. An agent's proposal or summary alone is not confirmation.
 - **The index includes pending topics:** Add a new draft topic with `—` in the Record column and “Pending discussion” as its status. Replace the marker only when a confirmed decision has been archived.
-- **Progress is history:** It preserves confirmed conclusions, reasoning, rejected alternatives, and later amendments.
+- **Progress is history:** It preserves confirmed conclusions, including rejection and deferral decisions, reasoning, rejected alternatives, and later amendments.
+- **Pending topics have an exit:** A human decision not to proceed or to postpone is archived and linked with the status `Rejected` or `Deferred`; it does not remain pending forever.
 - **Living documents distinguish now from later:** They describe current behavior separately from approved but unimplemented decisions; they do not replace decision history.
 - **The status index is navigation:** It helps locate drafts and records and understand their state without duplicating their full contents.
 
@@ -59,27 +75,31 @@ Conclusions that affect current rules ──sync──> the project's designated
 
 Give the following request to an agent working in the target project, together with this repository's URL or local path:
 
-> Read `README.md` and `AGENTS.knowledge.md` in the Project Knowledge Kit repository, and integrate this code-free knowledge workflow into the current project. Create only missing `Drafts/` and `Progress/` structures and an empty index. Merge the generic protocol into the root `AGENTS.md` without overwriting existing content. Check for an existing knowledge or decision-recording workflow first, and surface any conflicts. Identify the project's living documents for current consensus. Do not copy illustrative examples as real project history or invent business decisions merely to populate the archive. When finished, report what was added, merged, preserved, and any conflicts that require human judgment.
+> Read `README.md` and `AGENTS.knowledge.md` in the Project Knowledge Kit repository, and integrate this code-free knowledge workflow into the current project. Create only missing `Drafts/` and `Progress/` structures, including `Drafts/README.md`, `Progress/TEMPLATE.md`, and `Progress/Progress.md` with its header rules but no real project records; remove the illustrative comments from the copied index. Inline the generic protocol into the root `AGENTS.md` without overwriting existing content, then remove only the standalone `AGENTS.knowledge.md` copy introduced by this integration; preserve any pre-existing file with that name. Check for an existing knowledge or decision-recording workflow first, and surface any conflicts. Identify the project's living documents for current consensus. Copy only the template files listed in the integration steps, not maintenance artifacts such as `Docs/`. Do not copy illustrative examples as real project history or invent business decisions merely to populate the archive. When finished, report what was added, merged, preserved, and any conflicts that require human judgment.
 
 The integrating agent should follow these steps:
 
 1. **Inspect the target project**
    - Read its existing `AGENTS.md`, README, contribution guides, and other agent instructions.
    - Check for existing `Drafts/`, `Progress/`, decision records, or archiving rules. Preserve and reconcile existing content rather than replacing entire directories.
-2. **Copy only the blank structure**
+2. **Copy only the blank template structure**
    - Create `Drafts/` and `Progress/` only when missing.
-   - Use the kit's empty `Progress/Progress.md` and its `TEMPLATE.md`.
-   - Do not copy real drafts, decisions, or images produced by this kit's use in any other project.
-3. **Merge the protocol**
-   - Merge `AGENTS.knowledge.md` into the target project's root `AGENTS.md`.
+   - Copy `Drafts/README.md`, `Progress/Progress.md`, and `Progress/TEMPLATE.md`. Keeping the draft guide is the default because Git does not track empty directories and the guide explains pending-topic indexing and draft preservation. It may be omitted only when those rules are already covered by the merged `AGENTS.md` and the project has another deliberate way to retain `Drafts/`.
+   - Copy `Progress/Progress.md` with its header rules and no real project records. Remove the illustrative HTML comments; do not erase the table or its instructions.
+   - Do not copy real drafts, decisions, or images produced by this kit's use in any other project. Do not copy repository-maintenance artifacts such as `Docs/`.
+3. **Inline the protocol as the single maintained copy**
+   - Merge the contents of `AGENTS.knowledge.md` into the target project's root `AGENTS.md`. This repository's `.knowledge` suffix is only a staging convention for integration; it is not a file most agents will discover automatically.
+   - After a successful inline merge, remove only the standalone `AGENTS.knowledge.md` copy introduced by this integration. Preserve any pre-existing file with that name until the user resolves its role. Do not leave both an inline copy and a referenced copy that can drift.
    - Preserve all unrelated project-specific rules. Do not delete or rewrite them merely to make the text look uniform.
    - If the project uses additional agent-instruction files, follow its existing convention for referencing the root `AGENTS.md` instead of creating several independently maintained copies.
+   - A project that already centrally manages its agent instructions may keep an external reference instead of inlining only if its agent runtime actually follows that reference and the project explicitly chooses a single maintained source. Do not assume that merely mentioning a path activates it.
 4. **Identify living documents**
    - Prefer existing README, architecture, product, or other current-consensus documents.
    - Do not require a new README or rewrite the project's design philosophy just to adopt this workflow.
 5. **Perform lightweight verification**
-   - Confirm that the new index contains no invented drafts or decisions.
-   - Confirm that the merged protocol covers startup draft checks, archiving confirmed conclusions, proactive archiving of direct conversations, partial-topic handling, amendment history, living-document synchronization, and noise control.
+   - Confirm that the new index retains its header rules and contains no invented drafts or decisions.
+   - Confirm that the merged protocol covers startup draft checks, accountable-human confirmation, pending-topic and unresolved-subscope indexing, the three archiving actions, proactive archiving of direct conversations, record naming, rejection/deferral exits, amendment history, current-versus-approved-future behavior, and noise control.
+   - Confirm that the exact status spellings are preserved and that `Drafts/README.md` is present or its two key rules are covered elsewhere.
    - Report all file changes and any rule conflicts that need human resolution.
 
 ## Day-to-Day Use
@@ -97,6 +117,10 @@ This also applies to unresolved questions within one topic. If a decision confir
 ### When an idea starts in conversation
 
 A draft is not required. After a human-confirmed conclusion emerges, the agent should proactively archive it without asking again for permission to perform the record-keeping step. Preserve the original motivation in a “Discussion Origin” section, and mark the index source as “No corresponding draft; raised directly in conversation.” Never backdate or fabricate a draft to make the workflow appear complete.
+
+### When an idea is rejected or deferred
+
+A decision not to implement an idea, or to postpone it, is a confirmed conclusion with an exit from pending work. Create a decision record explaining the rationale, link the topic's index row to it, and use the exact status `Rejected` or `Deferred`. Do not leave the row as `Pending discussion` merely because no implementation will occur. If the topic is later reconsidered, create a new record and preserve the earlier decision.
 
 ### When a conclusion changes
 
@@ -128,7 +152,9 @@ Could we support both JSON and CSV exports?
 Should notifications be sent immediately or collected into a daily digest?
 ```
 
-Immediately index both undiscussed topics in `Progress/Progress.md`. There are no conclusions or decision records yet:
+Record filenames use the archive date and that date's record sequence, not the source draft's date or sequence. The Source column establishes the draft relationship. The following dates intentionally differ across records.
+
+Immediately index both undiscussed topics in `Progress/Progress.md`; there are no conclusions or decision records yet:
 
 | Source | Record | Status | Updated | Notes |
 |---|---|---|---|---|
@@ -139,7 +165,7 @@ Immediately index both undiscussed topics in `Progress/Progress.md`. There are n
 
 During discussion, an agent recommends supporting JSON first and postponing CSV. That recommendation alone is not confirmation. The user then explicitly replies, “Yes, use JSON only for the first version; CSV remains undecided.” The export-format topic is now confirmed within that specific scope.
 
-Create `Progress/20261117_01-json-export.md`:
+Create `Progress/20261118_01-json-export.md`:
 
 ```markdown
 # Decision Record: JSON Export for the First Version
@@ -173,7 +199,7 @@ The original draft remains unchanged, including both topics. Update the index so
 
 | Source | Record | Status | Updated | Notes |
 |---|---|---|---|---|
-| Drafts/20261117_01.md (Export format — first-version JSON support) | Progress/20261117_01-json-export.md | Confirmed, pending implementation | 2026-11-18 | JSON approved for the first version |
+| Drafts/20261117_01.md (Export format — first-version JSON support) | Progress/20261118_01-json-export.md | Confirmed, pending implementation | 2026-11-18 | JSON approved for the first version |
 | Drafts/20261117_01.md (Export format — future CSV support) | — | Pending discussion | 2026-11-18 | Explicitly left undecided by the user |
 | Drafts/20261117_01.md (Notification timing) | — | Pending discussion | 2026-11-18 | Timing not yet decided |
 
@@ -183,18 +209,18 @@ If the README describes current application behavior, do not add “JSON export 
 ## Approved, Not Yet Implemented
 
 - JSON-only export has been approved for the first version.
-  See `Progress/20261117_01-json-export.md`. It is not currently available.
+  See `Progress/20261118_01-json-export.md`. It is not currently available.
 ```
 
 ### 3. Confirm another topic without resolving the CSV sub-scope
 
-On a later date, the user explicitly chooses a daily digest for notifications. Create a second record, `Progress/20261118_01-daily-digest.md`, while preserving the same original draft. The index now contains two separate decision records, but future CSV support remains pending because the notification decision says nothing about it:
+On a later date, the user explicitly chooses a daily digest for notifications. Create a second record, `Progress/20261119_01-daily-digest.md`, while preserving the same original draft. The index now contains two separate decision records, but future CSV support remains pending because the notification decision says nothing about it:
 
 | Source | Record | Status | Updated | Notes |
 |---|---|---|---|---|
-| Drafts/20261117_01.md (Export format — first-version JSON support) | Progress/20261117_01-json-export.md | Confirmed, pending implementation | 2026-11-18 | JSON approved for the first version |
+| Drafts/20261117_01.md (Export format — first-version JSON support) | Progress/20261118_01-json-export.md | Confirmed, pending implementation | 2026-11-18 | JSON approved for the first version |
 | Drafts/20261117_01.md (Export format — future CSV support) | — | Pending discussion | 2026-11-19 | Still undecided; not resolved by the notification decision |
-| Drafts/20261117_01.md (Notification timing) | Progress/20261118_01-daily-digest.md | Confirmed, pending implementation | 2026-11-19 | Send a daily digest; immediate notifications not approved |
+| Drafts/20261117_01.md (Notification timing) | Progress/20261119_01-daily-digest.md | Confirmed, pending implementation | 2026-11-19 | Send a daily digest; immediate notifications not approved |
 
 Confirming notification timing does not rewrite the JSON record, resolve the CSV sub-scope, or imply that either confirmed feature has been implemented.
 
@@ -202,13 +228,13 @@ Confirming notification timing does not rewrite the JSON record, resolve the CSV
 
 After implementation has begun, a real integration requirement makes CSV necessary. The agent does not silently change the old conclusion or treat CSV as having been approved earlier. It presents the new trade-off, and the user explicitly approves JSON and CSV together. This both resolves the pending CSV sub-scope and amends the earlier JSON-only decision.
 
-Create a new record, `Progress/20261120_01-json-and-csv-export.md`, stating that it amends `Progress/20261117_01-json-export.md` and why. Replace the CSV pending row's `—` with the new record path and update its status. Update the living document to describe JSON and CSV as approved future behavior until both are implemented and verified. The index retains the old decision, the new decision, and the notification decision:
+Create a new record, `Progress/20261120_01-json-and-csv-export.md`, stating that it amends `Progress/20261118_01-json-export.md` and why. Replace the CSV pending row's `—` with the new record path and update its status. Update the living document to describe JSON and CSV as approved future behavior until both are implemented and verified. The index retains the old decision, the new decision, and the notification decision:
 
 | Source | Record | Status | Updated | Notes |
 |---|---|---|---|---|
-| Drafts/20261117_01.md (Export format — first-version JSON support) | Progress/20261117_01-json-export.md | Amended by a later decision | 2026-11-20 | JSON-only scope amended by 20261120_01-json-and-csv-export.md |
+| Drafts/20261117_01.md (Export format — first-version JSON support) | Progress/20261118_01-json-export.md | Amended by a later decision | 2026-11-20 | JSON-only scope amended by 20261120_01-json-and-csv-export.md |
 | Drafts/20261117_01.md (Export format — future CSV support) | Progress/20261120_01-json-and-csv-export.md | Confirmed, pending implementation | 2026-11-20 | CSV explicitly approved; JSON and CSV now form the approved export scope |
-| Drafts/20261117_01.md (Notification timing) | Progress/20261118_01-daily-digest.md | Confirmed, pending implementation | 2026-11-19 | Send a daily digest; immediate notifications not approved |
+| Drafts/20261117_01.md (Notification timing) | Progress/20261119_01-daily-digest.md | Confirmed, pending implementation | 2026-11-19 | Send a daily digest; immediate notifications not approved |
 
 The original draft and both export records remain available. The old record shows what was approved at that time, the pending CSV row tracked the unresolved sub-scope until its explicit resolution, and the new record shows the current approved direction. The README continues to distinguish approved future behavior from verified existing behavior.
 
@@ -221,4 +247,6 @@ The original draft and both export records remain available. The old record show
 
 ## Using This Kit to Maintain Itself
 
-This repository is maintained independently. It may add its own root `AGENTS.md` referencing `AGENTS.knowledge.md`, allowing the kit to use the same workflow for its own evolution. This is optional and is not a required step when integrating the kit into another project.
+This kit repository intentionally has no root `AGENTS.md` and does not maintain real project decision records in its template `Progress/`. It is a protocol source, not a business project; the template files must remain free of repository-maintenance history so that copies never import unrelated decisions. Integration instructions are read from this README when needed, and target projects activate the protocol by inlining it into their own `AGENTS.md`.
+
+Keep review reports and maintenance artifacts outside the copyable template tree, and do not copy them into target projects.

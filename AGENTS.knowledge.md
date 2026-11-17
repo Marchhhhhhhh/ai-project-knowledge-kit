@@ -36,7 +36,7 @@ This is a generic rule set intended to be merged into a target project's root `A
 ### Decision Records: Preserve Valid Conclusions and Their Rationale
 
 - Archiving means **creating a new decision record in `Progress/`, preserving the original draft and any unconfirmed topics, and updating `Progress/Progress.md`**. It does not mean moving, deleting, or rewriting the original draft.
-- Once a discussion reaches a clear, human-confirmed conclusion, archive information with long-term value in `Progress/`. The recommended filename is `YYYYMMDD_sequence-topic.md`; when a corresponding draft exists, its name should make that relationship recognizable.
+- Once a discussion reaches a clear, human-confirmed conclusion, archive information with long-term value in `Progress/`. The recommended filename is `YYYYMMDD_sequence-topic.md`: use the archive date and the sequence number of that record within that date. The Source field and source metadata establish the relationship with a draft; do not reuse the draft's filename as a substitute for the record's own date and sequence.
 - Use `Progress/TEMPLATE.md` as a reference. Each record should retain, as applicable:
   - source and date;
   - discussion origin or original request;
@@ -60,7 +60,8 @@ This is a generic rule set intended to be merged into a target project's root `A
 - The index records source, optional record path, current status, update date, and necessary context. Keep detailed reasoning in the record itself to avoid maintaining two full copies.
 - When only part of a draft has been processed, keep the unconfirmed topics pending and add a separate row for each newly archived decision. Each row must identify its topic scope; do not mark the entire draft as processed.
 - The same rule applies within a single topic: if only one question or sub-scope is confirmed, split the remaining open question into its own pending row with a precise Source scope. Do not bury it only in a confirmed record's Notes or assume that a decision on the parent topic resolves it. Link that pending row to a decision record only when the open question itself has been explicitly resolved.
-- Status values should describe reality, such as “pending discussion,” “confirmed, pending implementation,” “implemented,” or “amended by a later decision.” Status may be updated after implementation without erasing the original design rationale.
+- A decision to reject or defer a topic is also a confirmed conclusion, not an unresolved topic. Archive the decision and its rationale, link the index row to that record, and use the exact status `Rejected` or `Deferred`. Do not leave a human-decided “do not do this” or “not now” item indefinitely marked as pending.
+- Use these exact status values and capitalization: `Pending discussion`, `Confirmed, pending implementation`, `Implemented`, `Rejected`, `Deferred`, and `Amended by a later decision`. Status may be updated after implementation without erasing the original design rationale. A later human decision may reopen a rejected or deferred topic by creating a new record and linking the history rather than silently changing the old conclusion.
 
 ### Living Consensus and Decision History: Maintain Separately
 

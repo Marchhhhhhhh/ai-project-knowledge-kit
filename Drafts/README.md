@@ -10,4 +10,4 @@ Use this directory to preserve authentic ideas, questions, and requests from bef
 - Do not delete an original draft after one of its topics is confirmed and archived. Archiving creates a separate decision record; it does not move the draft. Keep any remaining topics pending in the index.
 - Conclusions raised directly in conversation do not require a draft to be added here afterward.
 
-You may keep this guide after integrating the kit into a project, or remove it once contributors are familiar with the workflow.
+You may remove this guide once contributors are familiar with the workflow, provided the merged `AGENTS.md` still covers pending-topic indexing and draft preservation and the project has another deliberate way to retain the otherwise empty `Drafts/` directory in Git.
