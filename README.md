@@ -1,14 +1,32 @@
 # Project Knowledge Kit
 
-A **code-free, dependency-free** knowledge workflow for software projects. It separates raw ideas, confirmed decisions, decision history, and current project consensus so that contributors and AI agents can understand not only what was decided, but also why.
+**Your drafts and your agent's conversation insights become one shared, traceable project memory.**
 
-> **Core idea:** Preserve project memory in plain text, and use `AGENTS.md` to instruct agents how to maintain that memory.
+Write ideas down whenever they occur, or simply start talking. Both paths meet in the same decision history—without forcing conversations into fake drafts or letting useful conclusions disappear into chat logs.
+
+```text
+YOUR DRAFTS                         AGENT CONVERSATIONS
+ideas, questions, context           insights, proposals, clarifications
+        │                                     │
+        └───────────────┬─────────────────────┘
+                        ▼
+              HUMAN-CONFIRMED DECISIONS
+                        │
+                        ▼
+        TRACEABLE HISTORY + CURRENT CONSENSUS
+```
+
+The agent organizes and archives; the accountable human decides. The two paths are equal entry points into one knowledge workflow—not competing ways of working.
+
+A **code-free, dependency-free** implementation for software projects, using plain text and `AGENTS.md`. It separates raw ideas, confirmed decisions, decision history, and current project consensus so that contributors and AI agents can understand not only what was decided, but also why.
 
 Current distribution version: **0.1.0** (see [VERSION](VERSION)). Git-based integrations record the full source commit SHA; ZIP or copied-directory integrations record the source location and this version.
 
 ## 中文介绍
 
 这是一套**项目知识沉淀模板包**，用于在其他项目中复用 `Drafts/`、`Progress/`、归档规则和 `AGENTS.md` 组成的工作流。它源自作者本地的 Work Bench 项目，不包含该项目的业务规则、真实草稿或历史决策。
+
+它的核心优势是两条入口的合作：**用户随手写下的草稿**与 **Agent 从直接对话中整理的信息**汇入同一套决策历史。草稿不会限制即时讨论，对话中的好结论也不会只留在聊天记录里；Agent 负责整理与归档，有决策权的人负责确认。
 
 - **Drafts（草稿箱）**：保留讨论前的真实想法，允许零碎、不成熟和一文多话题。
 - **Progress/（决策记录目录）**：保存已经确认的结论、理由、否决项和后续修订关系。
