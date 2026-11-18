@@ -20,7 +20,7 @@ The agent organizes and archives; the accountable human decides. The two paths a
 
 A **code-free, dependency-free** implementation for software projects, using plain text and `AGENTS.md`. It separates raw ideas, confirmed decisions, decision history, and current project consensus so that contributors and AI agents can understand not only what was decided, but also why.
 
-Current distribution version: **0.1.0** (see [VERSION](VERSION)). Git-based integrations record the full source commit SHA; ZIP or copied-directory integrations record the source location and this version.
+Current distribution version: **0.2.0** (see [VERSION](VERSION)). Git-based integrations record the full source commit SHA; ZIP or copied-directory integrations record the source location and this version.
 
 ## 中文介绍
 
@@ -28,7 +28,7 @@ Current distribution version: **0.1.0** (see [VERSION](VERSION)). Git-based inte
 
 它的核心优势是两条入口的合作：**用户随手写下的草稿**与 **Agent 从直接对话中整理的信息**汇入同一套决策历史。草稿不会限制即时讨论，对话中的好结论也不会只留在聊天记录里；Agent 负责整理与归档，有决策权的人负责确认。
 
-- **Drafts（草稿箱）**：保留讨论前的真实想法，允许零碎、不成熟和一文多话题。
+- **Drafts（草稿箱）**：保留讨论前的真实想法，允许零碎、不成熟和一文多话题。个人推荐按月记录，多人并行时按月、按作者分文件；条目使用收录日期和当日稳定编号，Agent 可代补格式。
 - **Progress/（决策记录目录）**：保存已经确认的结论、理由、否决项和后续修订关系。
 - **Progress/Progress.md（状态索引文件）**：登记待处理话题并导航到决策记录，不重复完整论证。
 - **AGENTS.knowledge.md（通用协议）**：由 Agent 内联合并进目标项目的 `AGENTS.md`，记录来源及完整提交号或分发版本，随后不保留第二份协议副本。
@@ -110,7 +110,7 @@ The integrating agent should follow these steps:
    - Do not copy real drafts, decisions, or images produced by this kit's use in any other project. Do not copy repository-maintenance artifacts such as `Docs/`.
 3. **Inline the protocol as the single maintained copy**
    - Merge the contents of `AGENTS.knowledge.md` into the target project's root `AGENTS.md`. This repository's `.knowledge` suffix is only a staging convention for integration; it is not a file most agents will discover automatically.
-   - Immediately above the merged protocol, add a provenance comment identifying the exact source used. For a Git source, use its repository URL and full commit SHA: `<!-- Project Knowledge Protocol source: https://github.com/OWNER/ai-project-knowledge-kit @ FULL_COMMIT_SHA -->`. For a ZIP or copied directory, use its location and the version in `VERSION`: `<!-- Project Knowledge Protocol source: DISTRIBUTION_LOCATION @ version 0.1.0 -->`. Replace every placeholder with the actual source information; do not record an unversioned branch name. Preserve this anchor during later upgrades.
+   - Immediately above the merged protocol, add a provenance comment identifying the exact source used. For a Git source, use its repository URL and full commit SHA: `<!-- Project Knowledge Protocol source: https://github.com/OWNER/ai-project-knowledge-kit @ FULL_COMMIT_SHA -->`. For a ZIP or copied directory, use its location and the version in `VERSION`: `<!-- Project Knowledge Protocol source: DISTRIBUTION_LOCATION @ version 0.2.0 -->`. Replace every placeholder with the actual source information; do not record an unversioned branch name. Preserve this anchor during later upgrades.
    - After a successful inline merge, remove only the standalone `AGENTS.knowledge.md` copy introduced by this integration. Preserve any pre-existing file with that name until the user resolves its role. Do not leave both an inline copy and a referenced copy that can drift.
    - Preserve all unrelated project-specific rules. Do not delete or rewrite them merely to make the text look uniform.
    - If the project uses additional agent-instruction files, follow its existing convention for referencing the root `AGENTS.md` instead of creating several independently maintained copies.
@@ -120,8 +120,8 @@ The integrating agent should follow these steps:
    - Do not require a new README or rewrite the project's design philosophy just to adopt this workflow.
 5. **Perform lightweight verification**
    - Confirm that the new index retains its header rules and contains no invented drafts or decisions.
-   - Confirm that the merged protocol covers startup draft checks, accountable-human confirmation, pending-topic and unresolved-sub-scope indexing, the three archiving actions, proactive archiving of direct conversations, record naming, rejection/deferral exits, later reopening, amendment history, current-versus-approved-future behavior, and noise control.
-   - Confirm that the exact status spellings are preserved and that `Drafts/README.md` is present or its two key rules are covered elsewhere.
+   - Confirm that the merged protocol covers monthly and per-author draft naming, stable dated entry numbering, precise Source references, agent metadata completion without rewriting authentic input, legacy-draft compatibility, startup draft checks, accountable-human confirmation, pending-topic and unresolved-sub-scope indexing, the three archiving actions, proactive archiving of direct conversations, record naming, rejection/deferral exits, later reopening, amendment history, current-versus-approved-future behavior, and noise control.
+   - Confirm that the exact status spellings are preserved and that `Drafts/README.md` is present or its pending-topic indexing, draft preservation, and recommended monthly-entry rules are covered elsewhere.
    - Confirm that the merged protocol has a provenance comment with the actual source location and either the full upstream commit SHA or the `VERSION` value used.
    - Report all file changes and any rule conflicts that need human resolution.
 
@@ -129,7 +129,9 @@ The integrating agent should follow these steps:
 
 ### When an idea starts as a draft
 
-Record it informally in `Drafts/`, and add each topic to `Progress/Progress.md` with `—` in the Record column and “Pending discussion” as its status. Discuss it with an agent or project collaborator. Different topics in one file may be confirmed separately.
+Record it informally in `Drafts/`, and add each topic to `Progress/Progress.md` with `—` in the Record column and “Pending discussion” as its status. For personal or low-concurrency use, the recommended filename is `YYYYMM.md`; for parallel collaboration, use `YYYYMM_author.md` with a stable team account or author identifier so contributors append to separate files. Within a monthly file, group entries under `YYYY-MM-DD` headings and number them `01`, `02`, and so on within that date, with a short topic heading. The date is when the entry was captured, not when the idea first occurred. Do not renumber entries or move unresolved entries into a later month. Different topics in one file may be confirmed separately.
+
+Preserve the author's original wording. An agent capturing an idea or receiving a draft without the recommended metadata should use the actual capture date, append the next number within that date, and add a short heading instead of asking the author to rewrite the input. Never infer an earlier idea date from file timestamps. Historical material may use its actual import date with an import note, or state that its original date is unknown. Source references identify the file, entry date, number, and topic scope. Legacy `YYYYMMDD_sequence.md` files remain valid and need not be renamed.
 
 “Confirmed” means that the user or another accountable human decision-maker has explicitly accepted a specific conclusion or option. An agent's proposal, summary, or interpretation of silence is not confirmation. If the accepted scope is unclear, ask before archiving.
 
@@ -165,26 +167,30 @@ The following example is entirely fictional. It illustrates file relationships a
 
 ### 1. Capture two topics without treating them as approved
 
-Create `Drafts/20261117_01.md`:
+Create `Drafts/202611_lqf.md` with two entries on the same date:
 
 ```markdown
-# Export format
+# November 2026 Drafts
+
+## 2026-11-17
+
+### 01 Export format
 
 Could we support both JSON and CSV exports?
 
-# Notification timing
+### 02 Notification timing
 
 Should notifications be sent immediately or collected into a daily digest?
 ```
 
-Record filenames use the archive date and that date's record sequence, not the source draft's date or sequence. The Source column establishes the draft relationship. The following dates intentionally differ across records.
+The author suffix keeps parallel contributors in separate files; personal or low-concurrency projects may use `Drafts/202611.md`. Record filenames use the archive date and that date's record sequence, not the source entry's date or number. The Source column establishes the draft relationship. The following dates intentionally differ across records. Legacy daily-draft files may remain under their original names; only newly captured entries need to follow the monthly convention.
 
 Immediately index both undiscussed topics in `Progress/Progress.md`; there are no conclusions or decision records yet:
 
 | Source | Record | Status | Updated | Notes |
 |---|---|---|---|---|
-| Drafts/20261117_01.md (Export format) | — | Pending discussion | 2026-11-17 | JSON and CSV support not yet decided |
-| Drafts/20261117_01.md (Notification timing) | — | Pending discussion | 2026-11-17 | Timing not yet decided |
+| Drafts/202611_lqf.md (2026-11-17 / 01 / Export format) | — | Pending discussion | 2026-11-17 | JSON and CSV support not yet decided |
+| Drafts/202611_lqf.md (2026-11-17 / 02 / Notification timing) | — | Pending discussion | 2026-11-17 | Timing not yet decided |
 
 ### 2. Confirm and archive only the JSON scope
 
@@ -195,7 +201,7 @@ Create `Progress/20261118_01-json-export.md`:
 ```markdown
 # Decision Record: JSON Export for the First Version
 
-- Source: `Drafts/20261117_01.md` (Export format)
+- Source: `Drafts/202611_lqf.md` (2026-11-17 / 01 / Export format)
 - Archived: 2026-11-18
 - Status: Confirmed, pending implementation
 
@@ -224,9 +230,9 @@ The original draft remains unchanged, including both topics. Update the index so
 
 | Source | Record | Status | Updated | Notes |
 |---|---|---|---|---|
-| Drafts/20261117_01.md (Export format — first-version JSON support) | Progress/20261118_01-json-export.md | Confirmed, pending implementation | 2026-11-18 | JSON approved for the first version |
-| Drafts/20261117_01.md (Export format — future CSV support) | — | Pending discussion | 2026-11-18 | Explicitly left undecided by the user |
-| Drafts/20261117_01.md (Notification timing) | — | Pending discussion | 2026-11-18 | Timing not yet decided |
+| Drafts/202611_lqf.md (2026-11-17 / 01 / Export format — first-version JSON support) | Progress/20261118_01-json-export.md | Confirmed, pending implementation | 2026-11-18 | JSON approved for the first version |
+| Drafts/202611_lqf.md (2026-11-17 / 01 / Export format — future CSV support) | — | Pending discussion | 2026-11-18 | Explicitly left undecided by the user |
+| Drafts/202611_lqf.md (2026-11-17 / 02 / Notification timing) | — | Pending discussion | 2026-11-18 | Timing not yet decided |
 
 If the README describes current application behavior, do not add “JSON export is available.” Instead, if advance documentation is useful, add a clearly separated section:
 
@@ -243,9 +249,9 @@ On a later date, the user explicitly chooses a daily digest for notifications. C
 
 | Source | Record | Status | Updated | Notes |
 |---|---|---|---|---|
-| Drafts/20261117_01.md (Export format — first-version JSON support) | Progress/20261118_01-json-export.md | Confirmed, pending implementation | 2026-11-18 | JSON approved for the first version |
-| Drafts/20261117_01.md (Export format — future CSV support) | — | Pending discussion | 2026-11-19 | Still undecided; not resolved by the notification decision |
-| Drafts/20261117_01.md (Notification timing) | Progress/20261119_01-daily-digest.md | Confirmed, pending implementation | 2026-11-19 | Send a daily digest; immediate notifications not approved |
+| Drafts/202611_lqf.md (2026-11-17 / 01 / Export format — first-version JSON support) | Progress/20261118_01-json-export.md | Confirmed, pending implementation | 2026-11-18 | JSON approved for the first version |
+| Drafts/202611_lqf.md (2026-11-17 / 01 / Export format — future CSV support) | — | Pending discussion | 2026-11-19 | Still undecided; not resolved by the notification decision |
+| Drafts/202611_lqf.md (2026-11-17 / 02 / Notification timing) | Progress/20261119_01-daily-digest.md | Confirmed, pending implementation | 2026-11-19 | Send a daily digest; immediate notifications not approved |
 
 Confirming notification timing does not rewrite the JSON record, resolve the CSV sub-scope, or imply that either confirmed feature has been implemented.
 
@@ -257,9 +263,9 @@ Create a new record, `Progress/20261120_01-json-and-csv-export.md`, stating that
 
 | Source | Record | Status | Updated | Notes |
 |---|---|---|---|---|
-| Drafts/20261117_01.md (Export format — first-version JSON support) | Progress/20261118_01-json-export.md | Amended by a later decision | 2026-11-20 | JSON-only scope amended by 20261120_01-json-and-csv-export.md |
-| Drafts/20261117_01.md (Export format — future CSV support) | Progress/20261120_01-json-and-csv-export.md | Confirmed, pending implementation | 2026-11-20 | CSV explicitly approved; JSON and CSV now form the approved export scope |
-| Drafts/20261117_01.md (Notification timing) | Progress/20261119_01-daily-digest.md | Confirmed, pending implementation | 2026-11-19 | Send a daily digest; immediate notifications not approved |
+| Drafts/202611_lqf.md (2026-11-17 / 01 / Export format — first-version JSON support) | Progress/20261118_01-json-export.md | Amended by a later decision | 2026-11-20 | JSON-only scope amended by 20261120_01-json-and-csv-export.md |
+| Drafts/202611_lqf.md (2026-11-17 / 01 / Export format — future CSV support) | Progress/20261120_01-json-and-csv-export.md | Confirmed, pending implementation | 2026-11-20 | CSV explicitly approved; JSON and CSV now form the approved export scope |
+| Drafts/202611_lqf.md (2026-11-17 / 02 / Notification timing) | Progress/20261119_01-daily-digest.md | Confirmed, pending implementation | 2026-11-19 | Send a daily digest; immediate notifications not approved |
 
 The original draft and both export records remain available. The old record shows what was approved at that time, the pending CSV row tracked the unresolved sub-scope until its explicit resolution, and the new record shows the current approved direction. The README continues to distinguish approved future behavior from verified existing behavior.
 

@@ -1,6 +1,6 @@
 # Decision Record: <Topic>
 
-- Source: `Drafts/YYYYMMDD_sequence.md` (identify the topic), or “No corresponding draft; raised directly in conversation”
+- Source: `Drafts/YYYYMM.md` (YYYY-MM-DD / NN / topic), `Drafts/YYYYMM_author.md` (YYYY-MM-DD / NN / topic) for parallel collaboration, a valid legacy draft path, or “No corresponding draft; raised directly in conversation”
 - Archived: YYYY-MM-DD
 - Status: `Confirmed, pending implementation` / `Implemented` / `Rejected` / `Deferred` / `Amended by a later decision`
 

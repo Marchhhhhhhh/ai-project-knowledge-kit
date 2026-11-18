@@ -20,11 +20,14 @@ This is a generic rule set intended to be merged into a target project's root `A
 
 ### Drafts: Preserve Authentic, Unrefined Input
 
-- Use `Drafts/` for fragmented ideas, questions, and requests. The recommended filename format is `YYYYMMDD_sequence.md`; one file may contain multiple topics.
+- Use `Drafts/` for fragmented ideas, questions, and requests. For personal or low-concurrency use, the recommended filename is `YYYYMM.md`; for parallel collaboration, use `YYYYMM_author.md` with a stable team account or author identifier so contributors can number independently and avoid shared-file conflicts.
+- Within a monthly file, group entries under `YYYY-MM-DD` headings and number them `01`, `02`, and so on within that date, with a short topic heading. The date is when the entry was captured, not when the idea first occurred. Numbers remain stable: do not renumber, rearrange, or move unresolved entries into a new month after discussion or archiving. Source references identify the file, entry date, number, and topic scope.
+- Preserve the author's original wording. When an agent captures an idea or receives a draft without the recommended metadata, use the actual capture date, append the next number within that date, and add a short heading without requiring the author to rewrite the input. Never infer an earlier idea date from file timestamps. For historical material, use the actual import date and identify it as imported on that date, or state that its original date is unknown.
+- Legacy `Drafts/YYYYMMDD_sequence.md` files and their Source references remain valid. Do not rename or rewrite them merely to adopt monthly drafts; a project may choose a different deliberate convention as long as entries remain stably identifiable and traceable.
 - Drafts capture authentic input from before a discussion. They may include uncertainties, images, and immature ideas; they do not need to be complete proposals.
 - A draft is neither a commitment nor confirmation. Undiscussed and unconfirmed portions remain pending in the draft inbox.
-- One draft may be discussed and archived over several sessions. Do not prematurely confirm unrelated topics just to mark the whole file as processed.
-- When a new draft is added, also add its pending topics to `Progress/Progress.md`. Use `—` in the Record column until a decision record exists, and use the status `Pending discussion`. This makes pending work discoverable without inventing a conclusion or an archive file.
+- One monthly file may contain topics discussed and archived over several sessions and across later months. Do not prematurely confirm unrelated topics just to mark the whole file as processed. The index, rather than the newest monthly file, determines pending work.
+- When a new draft entry is added, also add its pending topics to `Progress/Progress.md`. Use `—` in the Record column until a decision record exists, and use the status `Pending discussion`. This makes pending work discoverable without inventing a conclusion or an archive file.
 
 ### Confirmation: The Accountable Human Decides
 
@@ -55,7 +58,7 @@ This is a generic rule set intended to be merged into a target project's root `A
 
 ### Status Index: Track Pending Topics and Decision Records
 
-- Update `Progress/Progress.md` when a draft is added, when a decision record is added or materially updated, or when a topic's processing status changes.
+- Update `Progress/Progress.md` when a draft entry is added, when a decision record is added or materially updated, or when a topic's processing status changes.
 - The index serves both pending work and decision history. A pending topic uses its draft as the Source, `—` as the Record, and the status `Pending discussion`. Replace `—` with the record path only after a human-confirmed decision has been archived.
 - The index records source, optional record path, current status, update date, and necessary context. Keep detailed reasoning in the record itself to avoid maintaining two full copies.
 - When only part of a draft has been processed, keep the unconfirmed topics pending and add a separate row for each newly archived decision. Each row must identify its topic scope; do not mark the entire draft as processed.
