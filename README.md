@@ -1,5 +1,7 @@
 # Project Knowledge Kit
 
+**English** | [简体中文](README.zh-CN.md)
+
 **Your drafts and your agent's conversation insights become one shared, traceable project memory.**
 
 Write ideas down whenever they occur, or simply start talking. Both paths meet in the same decision history—without forcing conversations into fake drafts or letting useful conclusions disappear into chat logs.
@@ -22,30 +24,12 @@ A **code-free, dependency-free** implementation for software projects, using pla
 
 Current distribution version: **0.2.0** (see [VERSION](VERSION)). Git-based integrations record the full source commit SHA; ZIP or copied-directory integrations record the source location and this version.
 
-## 中文介绍
-
-这是一套**项目知识沉淀模板包**，用于在其他项目中复用 `Drafts/`、`Progress/`、归档规则和 `AGENTS.md` 组成的工作流。它源自作者本地的 Work Bench 项目，不包含该项目的业务规则、真实草稿或历史决策。
-
-它的核心优势是两条入口的合作：**用户随手写下的草稿**与 **Agent 从直接对话中整理的信息**汇入同一套决策历史。草稿不会限制即时讨论，对话中的好结论也不会只留在聊天记录里；Agent 负责整理与归档，有决策权的人负责确认。
-
-- **Drafts（草稿箱）**：保留讨论前的真实想法，允许零碎、不成熟和一文多话题。个人推荐按月记录，多人并行时按月、按作者分文件；条目使用收录日期和当日稳定编号，Agent 可代补格式。
-- **Progress/（决策记录目录）**：保存已经确认的结论、理由、否决项和后续修订关系。
-- **Progress/Progress.md（状态索引文件）**：登记待处理话题并导航到决策记录，不重复完整论证。
-- **AGENTS.knowledge.md（通用协议）**：由 Agent 内联合并进目标项目的 `AGENTS.md`，记录来源及完整提交号或分发版本，随后不保留第二份协议副本。
-- **Living documents（当前共识文档）**：由目标项目指定，可以是已有 README、架构文档或产品文档，不强制新建。
-- **确认权归人**：Agent 的提议或总结不等于确认；有决策权的人明确接受结论后，Agent 主动完成归档。
-- **待处理事项可关闭**：新草稿及未决子项立即登记为 `Pending discussion`；明确不做或暂缓时分别归档为 `Rejected` 或 `Deferred`。
-- **当前与未来分开**：已批准但尚未实现的内容不得写成现有行为，须放在明确的待实现分区。
-
-模板包没有代码和运行时依赖。接入时必须保留目标项目已有内容，只创建缺失结构并合并协议，不能覆盖整个 `AGENTS.md` 或重写项目文档。本仓库自身不启用根 `AGENTS.md`，也不制造真实决策记录；`Progress/` 保持为空白模板。
-
-本模板包以英文为主体；本节仅作中文简介，完整的接入步骤、Agent 提示词和日常使用规则见下文。
-
 ## Directory Contents
 
 ```text
 ai-project-knowledge-kit/
-├── README.md                 # This guide, including the Chinese introduction
+├── README.md                 # English guide
+├── README.zh-CN.md           # Chinese translation of this guide
 ├── AGENTS.knowledge.md       # Generic protocol to merge into a project's AGENTS.md
 ├── VERSION                   # Distribution version for non-Git integration and upgrades
 ├── LICENSE                   # MIT License for reuse and adaptation
@@ -63,9 +47,9 @@ This kit is distributed under the [MIT License](LICENSE). The directory tree ide
 
 ## Terminology
 
-- **Living documents（当前共识文档）** are the project-designated documents that describe consensus currently in effect, such as a README or architecture document. “Current project consensus” is the content they communicate, not a separate storage location.
-- **Decision records（决策记录）** are dated files in `Progress/` that preserve conclusions and their context.
-- **The status index（状态索引）** is `Progress/Progress.md`, not the entire `Progress/` directory.
+- **Living documents** are the project-designated documents that describe consensus currently in effect, such as a README or architecture document. “Current project consensus” is the content they communicate, not a separate storage location.
+- **Decision records** are dated files in `Progress/` that preserve conclusions and their context.
+- **The status index** is `Progress/Progress.md`, not the entire `Progress/` directory.
 
 ## Workflow Overview
 
@@ -274,7 +258,7 @@ The original draft and both export records remain available. The old record show
 - The first version is plain text: no installer, initialization script, synchronization process, or runtime dependency.
 - Projects may adapt copied templates to local needs. Copies are not automatically synchronized across projects.
 - Each inlined protocol carries a source location and an exact upstream commit SHA or distribution version. Git sources use the full commit SHA; ZIP and copied-directory sources use the value in `VERSION`. To upgrade, compare the recorded version with the desired upstream version and review the protocol diff; report the effects on local customizations and existing workflows; obtain the project owner's confirmation for substantive changes; then merge deliberately and update the provenance version. Never overwrite the whole `AGENTS.md` during an upgrade.
-- When publishing a changed distribution, update `VERSION` and the matching version references in this README in the same change. Git tags are optional; the version file is the portable reference for non-Git consumers.
+- When publishing a changed distribution, update `VERSION` and the matching version references in both README translations in the same change. Git tags are optional; the version file is the portable reference for non-Git consumers.
 - The generic protocol describes only the knowledge workflow. Coding, testing, release, and business rules remain in each project's own `AGENTS.md`.
 - CLI tooling, version checks, and automatic synchronization should be considered only when real use in actual projects reveals a concrete need. They are not assumed to be inevitable next steps.
 
